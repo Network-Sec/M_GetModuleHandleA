@@ -1,6 +1,7 @@
 # M_GetModuleHandleA
 Custom low-level Assembly implementation of WinAPI function GetModuleHandle().
 
+## Usage Guidelines
 **Note:** This is an *Informational Article* in the area of Security Research, intended as baseline- and study guideline, and not a finished product. You are free to use the information to create your own version, but: 
 
 *"Please, **do not use our code as-is** in production, your own RedTeam or Pentesting activity, CTFs or malicious activity."* 
