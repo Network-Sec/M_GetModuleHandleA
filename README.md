@@ -19,6 +19,52 @@ and special registers.
 
 https://en.wikipedia.org/wiki/Win32_Thread_Information_Block  
 
+
+# 64bit Registers
+### Architecture
+| 64-bit                    ||||||||
+|---------------------------|-|-|-|-|-|-|-|
+| 32-bit         ||||32-bit |||
+| 16-bit         ||16-bit||16-bit ||16-bit|
+| 8-bit  | 8-bit | 8-bit  | 8-bit | 8-bit  | 8-bit | 8-bit  | 8-bit     |
+
+### General-Purpose Registers (Classic)
+| Register (64-bit) | Low 32-bit | Low 16-bit | Low 8-bit |
+|-------------------|------------|------------|-----------|
+| **RAX**           | EAX        | AX         | AL        |
+| **RBX**           | EBX        | BX         | BL        |
+| **RCX**           | ECX        | CX         | CL        |
+| **RDX**           | EDX        | DX         | DL        |
+| **RDI**           | EDI        | DI         | DIL       |
+| **RSI**           | ESI        | SI         | SIL       |
+| **RBP**           | EBP        | BP         | BPL       |
+| **RSP**           | ESP        | SP         | SPL       |
+| **R8**            | R8D        | R8W        | R8B       |
+
+### SIMD (128-bit, 256-bit, 512-bit) and System Registers
+| Register Type   | Naming    | Description                      |
+|-----------------|-------------|----------------------------------|
+| **XMM**         | XMM0-XMM15  | 128-bit for floating-point/SIMD  |
+| **YMM**         | YMM0-YMM15  | 256-bit for AVX instructions     |
+| **ZMM**         | ZMM0-ZMM31  | 512-bit for AVX-512 instructions |
+| **FS, GS**      | FS, GS      | Segment registers for system data|
+| **CR**          | CR0, CR2, CR3 | Control registers               |
+| **DR**          | DR0-DR7     | Debug registers                  |
+| **RFLAGS**      | RFLAGS      | Status flags                     |
+
+
+### Process Memory Layout
+| Virtual Address Space |                 |                           |                    |                 |
+|-----------------|-----------------|---------------------------|--------------------|-----------------|
+| Stack           | Heap            | Uninitialized<br />Data (BSS)  | Initialized<br />Data   | Text (Code)     |
+| Grows: High -> Low | Grows: Low -> High  |                           |                    |                 |
+| 0x7FFFFFFF -> 0x7FFFEFFF | 0x00621000 -> 0x00622000 | 0x00620000                | 0x00404000         | 0x00400000      |
+| Stack Pointer | Heap Start    |                           |                    | Entry Point |
+
+### Virtual Address Space
+Virtual Address Space refers to the range of memory addresses that an application can use in a virtual memory system. It provides a layer of abstraction between physical and logical memory, allowing processes to act as if they have access to a larger range of contiguous addresses than is actually available in physical RAM. The virtual address space is divided into different segments like the stack, heap, and data and code sections, each serving distinct roles within the context of a running process.
+
+
 ### FS / GS and TEB
 On 32bit, the `FS` register and on 64bit the `GS` register points to the `TEB`, the Thread Information Block aka Threat Environment Block. 
 
