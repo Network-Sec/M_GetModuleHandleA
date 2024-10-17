@@ -120,7 +120,7 @@ $currentProcessHandle = [MyModule]::GetModuleHandleA([NullString]::Value)
 Write-Host "Current Process Base Address: $currentProcessHandle"
 ```
 
-`Caviat`: Of course this method also has a downside, when it's gonna crash, it's gonna crash hard. There's absolutely no error checking, no high-level exception handling. 
+`Caviat`: Of course this method also has a downside, when it's gonna crash, it's gonna crash hard. There's absolutely no error checking, no high-level exception handling like in managed .NET, not even SEH.
 
 ### Receiving all entries
 We've been building up towards our own implementation of `GetModuleHandleA` in `assembly`, to evade security measures. As the assembly code is pretty short, we could easily `stuff` the custom dll we're building with other `instructions` we don't need, as obfuscation, and hide our implementation in between. But for the `research` part we don't see the need to do it here. 
