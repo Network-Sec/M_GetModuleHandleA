@@ -10,7 +10,7 @@ We spend a lot of time on creating things like this, with the intention to use t
 
 **For the very least, add some obfuscation, other instructions, not just NOPs!** 
 
-If your skill level doesn't allow for that - maybe you shouldn't do these things in the first place and consider methods you understand instead.
+If your skill level doesn't allow for that - maybe you shouldn't do these things in the first place and consider methods you understand instead. Like, riding your tricycle, or playing hide & seek. 
 
 Thank you.
 
