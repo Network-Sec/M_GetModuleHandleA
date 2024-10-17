@@ -35,8 +35,6 @@ Essentially, we're building a replacement / custom version for `GetModuleHandleA
 
 We had the idea after someone on `LinkedIn` suggested in a comment a rather obscure way of evasion, (which we think doesn't work like that) so we thought about, how you `could` actually do it. Building a custom `toolkit` of your own `WinAPI` / kernel32.dll functions in `assembly` is a tedious, but likely very succesful way that won't be detected and can hardly be blocked, as we do rather essential, low-level operations, reading a register, writing a register, etc. 
 
-And of course, as usual, someone else had the same idea already, years before we even entered the **Offensive Security** playing field. Commonly techniques like these are named as **Rootkits** albeit it's not doing Rookit-things, and usually Rootkit techniques aim for crossing from User Land to Kernel Space, execute Kernel syscalls rightaway and that way fly below the OS. 
-
 ```c
 #include <Windows.h>
 #include <winternl.h>
@@ -57,6 +55,7 @@ int main() {
     return 0;
 }
 ```
+But of course, as usual, someone else had the same idea already, years before we even entered the **Offensive Security** playing field. Commonly techniques like these are named as **Rootkits** albeit it's not doing Rookit-things, and usually Rootkit techniques aim for crossing from User Land to Kernel Space, execute Kernel syscalls rightaway and that way fly below the OS. 
 
 ### The WIP part
 The most complicated part is actually the `string` comparisson in assembly, which we're currently still working on. Strings, the dll names we'll be searching for, can be `ANSI` or `UNICODE` and aren't necessarily `null terminated`. On top we only want to pass the dll name like "kernel32.dll", yet the `LDR` contains the full path like `C:\Windows\System32\kernel32.dll`.
