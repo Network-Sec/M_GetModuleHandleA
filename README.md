@@ -64,7 +64,7 @@ The most complicated part is actually the `string` comparisson in assembly, whic
 Note that the offsets are different in different Windows versions. As we only have a "Windows 10 Pro" to test at the moment, we can't tell exactly, which versions differ, if it's the same between "Windows 10 Home" and "Pro". we suspect, it's the underlying NT version and thus major version differences, so XP, 7, 8, ... 
 
 BTW: If you try this yourself, following these endless pointer dereferences can throw you off pretty good, for the most part because you don't know the offsets and because offsets tend not always to be static (e.g. first access of the PEB, later access from within an object. You may try to reach the next flink while you just extracted the current DllBase, only to wonder where it went - going backwards or using negative offsets rarely is a good idea)
-```x86asm 
+```assembly 
 section .text
 global M_GetModuleHandleA
 
@@ -125,7 +125,7 @@ Write-Host "Current Process Base Address: $currentProcessHandle"
 ### Receiving all entries
 We've been building up towards our own implementation of `GetModuleHandleA` in `assembly`, to evade security measures. As the assembly code is pretty short, we could easily `stuff` the custom dll we're building with other `instructions` we don't need, as obfuscation, and hide our implementation in between. But for the `research` part we don't see the need to do it here. 
 
-```x86asm
+```assembly
 default rel
 section .text
 global M_GetModuleHandleA
