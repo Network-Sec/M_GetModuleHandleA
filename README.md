@@ -1,5 +1,5 @@
 # M_GetModuleHandleA
-Custom low-level Assembly implementation of WinAPwe function GetModuleHandle().
+Custom low-level Assembly implementation of WinAPI function GetModuleHandle().
 
 **Note:** This is an *Informational Article* in the area of Security Research, intended as baseline- and study guideline, and not a finished product. You are free to use the information to create your own version, but: 
 
@@ -22,7 +22,7 @@ On 32bit, the `FS` register and on 64bit the `GS` register points to the `TEB`, 
 ### PEB
 https://learn.microsoft.com/en-us/windows/win32/api/winternl/ns-winternl-peb
 
-Through the TEB you can access the PEB and further more, the PEB_LDR_DATA structure. It holds for example the `base address` of the current `process` and each loaded module, providing an `alternative` way to access this information without using high-level WinAPwe / kernel32.dll function. 
+Through the TEB you can access the PEB and further more, the PEB_LDR_DATA structure. It holds for example the `base address` of the current `process` and each loaded module, providing an `alternative` way to access this information without using high-level WinAPI / kernel32.dll function. 
 
 ### PEB in Debugger
 ![](peb.JPG)
