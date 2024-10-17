@@ -8,7 +8,9 @@ Custom low-level Assembly implementation of WinAPI function GetModuleHandle().
 
 We spend a lot of time on creating things like this, with the intention to use the code for our own, legal RedTeam activities, and to share the information with the community. Would be great, if it still works when we use it **for the first time** and not instantly be flagged. 
 
-**For the very least, add some obfuscation, other instructions, not just NOPs!** If your skill level doesn't allow for that - maybe you shouldn't do these things in the first place and consider methods you understand instead.
+**For the very least, add some obfuscation, other instructions, not just NOPs!** 
+
+If your skill level doesn't allow for that - maybe you shouldn't do these things in the first place and consider methods you understand instead.
 
 Thank you.
 
