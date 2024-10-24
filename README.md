@@ -248,4 +248,39 @@ Address: 0x00007FF88F190000
 Address: 0x00007FF8A4FC0000
 ```
 
+## Additional Tipps
+This can get a bit more difficult than your average Serialisation exploit. Here's a few pointers:
+- Start simple. Instead of CLI use VS2022 (or whatever version)
+- Beginn with dynamic loading, `LoadLibrary`, things you know work and you know `how` they work, to confirm your **Assembly** code is not broken
+- Once you got that, step it up to maybe CLI compilation, separating `cpp -> obj` compilation and `obj -> exe` linking, providing the .lib correctly etc.
 
+```c
+#include <stdio.h>
+#include <windows.h>
+#include <stdint.h> // Add this for uint64_t
+#include <winternl.h>
+
+#pragma comment(lib, "M_GetModuleHandleA.lib")
+
+extern "C" {
+    void __cdecl M_GetModuleHandleA(uint64_t* array, int* idx); // Forward declaration
+}
+
+int main() {
+    uint64_t array[50] = { 0 };
+    int idx = 0;
+
+    // Directly call the statically linked function
+    M_GetModuleHandleA(array, &idx);
+
+    // Print the base addresses
+    for (int i = 0; i < idx; i++) {
+        if (array[i] == 0) {
+            break;
+        }
+        printf("Base Address: %p\n", (void*)array[i]);
+    }
+
+    return 0;
+}
+```
