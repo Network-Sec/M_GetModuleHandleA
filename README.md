@@ -153,7 +153,9 @@ int main() {
 ```
 As noted before, this only will return the base address of the process, not yet the dll addresses, which will need some more adjustments. 
 
-Untested PowerShell implementation
+## Use in Powershell?
+At first we had this **untested PowerShell implementation** in our writeup, without second thought or ever trying it.
+
 ```powershell
 Add-Type -TypeDefinition @"
     using System;
@@ -168,7 +170,7 @@ Add-Type -TypeDefinition @"
 $currentProcessHandle = [MyModule]::GetModuleHandleA([NullString]::Value)
 Write-Host "Current Process Base Address: $currentProcessHandle"
 ```
-**Update:** We had a look into this later again, but Managed needs all stuff on the `Heap` and cannot work with `Stack` vars or pointers. So you'd need either a COM declaration using `regasm` (needs admin privs, so: kinda pointless) or work with a callback funcion:
+Later we had a look into this again. Managed needs all stuff on the `Heap` and cannot work with `Stack` vars or pointers. So you'd need either a COM declaration using `regasm` (needs admin privs, so: kinda pointless) or work with a callback funcion:
 
 ```powershell
 public delegate void CallbackDelegate(int[] buffer);
@@ -176,8 +178,6 @@ public delegate void CallbackDelegate(int[] buffer);
 [DllImport("YourUnmanagedLibrary.dll")]
 public static extern void RegisterCallback(CallbackDelegate callback);
 ```
-
-`Caviat`: Of course this method also has a downside, when it's gonna crash, it's gonna crash hard. There's absolutely no error checking, no high-level exception handling like in managed .NET, not even SEH (depending on how and where you call it).
 
 ### Receiving all entries
 We've been building up towards our own implementation of `GetModuleHandleA` in `assembly`, to evade security measures. As the assembly code is pretty short, we could easily `stuff` the custom dll we're building with other `instructions` we don't need, as obfuscation, and hide our implementation in between. But for the `research` part we don't see the need to do it here. 
@@ -256,6 +256,9 @@ Address: 0x00007FF88F190000
 Address: 0x00007FF8A4FC0000
 ```
 
+`Caviat`: Of course this method also has a downside, when it's gonna crash, it's gonna crash hard. There's absolutely no error checking, no high-level exception handling like in managed .NET, not even SEH (depending on how and where you call it).
+
+## WIP Update
 We finally came around to continue on the **WIP** part and now also output the DLLNames:
 
 ```powershell
