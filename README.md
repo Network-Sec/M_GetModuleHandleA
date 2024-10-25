@@ -6,7 +6,7 @@ In theory, this **could** fly below Windows `Exploit Guard` and similar `WinAPI 
 
 Further infos on the topic in general:
 - Def Con 32: https://www.youtube.com/watch?v=cHsRxkfxvq8
-- https://www.vergiliusproject.com/kernels/x64/windows-10/22h2/_PEB_LDR_DATA
+- VERGILIUS:  https://www.vergiliusproject.com/kernels/x64/windows-10/22h2/_PEB_LDR_DATA
   
 ## Usage Guidelines
 **Note:** This is an *Informational Article* in the area of Security Research, intended as baseline- and study guideline, and not a finished product. You are free to use the information to create your own version, but: 
