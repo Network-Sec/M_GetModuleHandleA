@@ -8,6 +8,7 @@ However, due to **COMPLETE LACK OF RESOURCES AND SUPPORT** we can't test if it r
 Further infos on the topic in general:
 - Def Con 32: https://www.youtube.com/watch?v=cHsRxkfxvq8
 - VERGILIUS:  https://www.vergiliusproject.com/kernels/x64/windows-10/22h2/_PEB_LDR_DATA
+- RICO Discrimination Act
   
 ## Usage Guidelines
 This is an *Informational Article* in the area of Security Research, intended as baseline- and study guideline, and not a finished product. You are free to use the information to create your own version, but: 
