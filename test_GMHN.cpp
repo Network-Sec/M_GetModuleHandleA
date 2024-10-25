@@ -40,3 +40,28 @@ int main() {
 
     return 0;
 }
+
+/* Output:
+Num of Entries received: 8
+DLL Names...
+00007FF74AA60000:C:\Users\user\source\repos\M_GetModuleHandleA\x64\Release\M_GetModuleHandleA.exe
+00007FFAF7C90000:C:\Windows\SYSTEM32\ntdll.dll
+00007FFAF7A00000:C:\Windows\System32\KERNEL32.DLL
+00007FFAF5350000:C:\Windows\System32\KERNELBASE.dll
+00007FFAF5BD0000:C:\Windows\System32\ucrtbase.dll
+00007FFAD2E10000:C:\Users\user\source\repos\M_GetModuleHandleA\x64\Release\M_GetModuleHandleA.dll
+00007FFAD5F60000:C:\Windows\SYSTEM32\VCRUNTIME140.dll
+0000000000000000:
+DLL Addresses...
+00007FF74AA60000
+00007FFAF7C90000
+00007FFAF7A00000
+00007FFAF5350000
+00007FFAF5BD0000
+00007FFAD2E10000
+00007FFAD5F60000
+0000000000000000
+
+There's still a small weirdness - we do pretty raw stuff here, so that can happen, especially when dealing with pointers in C afterwards and confusing types. 
+But if you remove the second printf loop, the whole thing will stop working... whatever :D
+*/
