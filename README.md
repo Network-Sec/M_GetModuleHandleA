@@ -170,7 +170,7 @@ Add-Type -TypeDefinition @"
 $currentProcessHandle = [MyModule]::GetModuleHandleA([NullString]::Value)
 Write-Host "Current Process Base Address: $currentProcessHandle"
 ```
-Later we had a look into this again. Managed needs all stuff on the `Heap` and cannot work with `Stack` vars or pointers. So you'd need either a COM declaration using `regasm` (needs admin privs, so: kinda pointless) or work with a callback funcion:
+Later we had a look into this again. Managed needs all stuff on the `Heap` and cannot work with `Stack` vars or pointers. So you'd need either a COM declaration using `regasm` (needs admin privs, so: kinda pointless) or work with a callback function:
 
 ```powershell
 public delegate void CallbackDelegate(int[] buffer);
