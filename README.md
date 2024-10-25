@@ -168,6 +168,14 @@ Add-Type -TypeDefinition @"
 $currentProcessHandle = [MyModule]::GetModuleHandleA([NullString]::Value)
 Write-Host "Current Process Base Address: $currentProcessHandle"
 ```
+**Update:** We had a look into this later again, but Managed needs all stuff on the `Heap` and cannot work with `Stack` vars or pointers. So you'd need either a COM declaration using `regasm` (needs admin privs, so: kinda pointless) or work with a callback funcion:
+
+```powershell
+public delegate void CallbackDelegate(int[] buffer);
+
+[DllImport("YourUnmanagedLibrary.dll")]
+public static extern void RegisterCallback(CallbackDelegate callback);
+```
 
 `Caviat`: Of course this method also has a downside, when it's gonna crash, it's gonna crash hard. There's absolutely no error checking, no high-level exception handling like in managed .NET, not even SEH (depending on how and where you call it).
 
@@ -247,6 +255,21 @@ Address: 0x00007FF8ABAB0000
 Address: 0x00007FF88F190000
 Address: 0x00007FF8A4FC0000
 ```
+
+We finally came around to continue on the **WIP** part and now also output the DLLNames:
+
+```powershell
+Num of Entries received: 8
+DLL Names...
+00007FF70CDD0000:C:\Users\user\source\repos\M_GetModuleHandleA\x64\Release\M_GetModuleHandleA.exe
+00007FFAF7C90000:C:\Windows\SYSTEM32\ntdll.dll
+00007FFAF7A00000:C:\Windows\System32\KERNEL32.DLL
+00007FFAF5350000:C:\Windows\System32\KERNELBASE.dll
+00007FFAF5BD0000:C:\Windows\System32\ucrtbase.dll
+00007FFAD5F60000:C:\Windows\SYSTEM32\VCRUNTIME140.dll
+00007FFAD2E10000:C:\Users\user\source\repos\M_GetModuleHandleA\x64\Release\M_GetModuleHandleA.dll
+```
+It's easier that way than to try string compare in `Assembly`. 
 
 ## Additional Tipps
 This can get a bit more difficult than your average Serialisation exploit. Here's a few pointers:
