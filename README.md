@@ -182,6 +182,7 @@ public static extern void RegisterCallback(CallbackDelegate callback);
 ### Receiving all entries
 We've been building up towards our own implementation of `GetModuleHandleA` in `assembly`, to evade security measures. As the assembly code is pretty short, we could easily `stuff` the custom dll we're building with other `instructions` we don't need, as obfuscation, and hide our implementation in between. But for the `research` part we don't see the need to do it here. 
 
+Assembly for the DLL:
 ```assembly
 default rel
 section .text
@@ -278,6 +279,7 @@ int main() {
 }
 ```
 
+Output:
 ```powershell
 Address: 0x00007FF75E9E0000
 Address: 0x00007FF8AE3D0000
