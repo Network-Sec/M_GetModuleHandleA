@@ -112,7 +112,7 @@ Each module in the list is represented by a `LDR_DATA_TABLE_ENTRY` structure, wh
 
 ```c
 typedef struct _LIST_ENTRY {
-    struct _LIST_ENTRY* Flink;  // Pointer to the next entry
+    struct _LIST_ENTRY* Flink;   // Pointer to the next entry
     struct _LIST_ENTRY* Blink;   // Pointer to the previous entry
 } LIST_ENTRY, *PLIST_ENTRY;
 ```
@@ -122,17 +122,17 @@ The `LDR_DATA_TABLE_ENTRY` structure represents a single loaded module:
 
 ```c
 typedef struct _LDR_DATA_TABLE_ENTRY {
-    LIST_ENTRY InLoadOrderLinks; // Links for the load order
-    LIST_ENTRY InMemoryOrderLinks; // Links for memory order
-    LIST_ENTRY InInitializationOrderLinks; // Links for init order
-    PVOID DllBase;               // Base address of the DLL
-    PVOID EntryPoint;            // Entry point of the DLL
-    ULONG SizeOfImage;           // Size of the image
-    UNICODE_STRING FullDllName;  // Full name of the DLL
-    UNICODE_STRING BaseDllName;   // Base name of the DLL
-    ULONG Flags;                 // Flags
-    USHORT LoadCount;            // Load count
-    USHORT TlsIndex;             // TLS index
+    LIST_ENTRY InLoadOrderLinks;             // Links for the load order
+    LIST_ENTRY InMemoryOrderLinks;           // Links for memory order
+    LIST_ENTRY InInitializationOrderLinks;   // Links for init order
+    PVOID DllBase;                           // Base address of the DLL
+    PVOID EntryPoint;                        // Entry point of the DLL
+    ULONG SizeOfImage;                       // Size of the image
+    UNICODE_STRING FullDllName;              // Full name of the DLL
+    UNICODE_STRING BaseDllName;              // Base name of the DLL
+    ULONG Flags;                             // Flags
+    USHORT LoadCount;                        // Load count
+    USHORT TlsIndex;                         // TLS index
     // Other fields...
 } LDR_DATA_TABLE_ENTRY, *PLDR_DATA_TABLE_ENTRY;
 ```
