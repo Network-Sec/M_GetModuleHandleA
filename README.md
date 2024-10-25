@@ -243,6 +243,36 @@ public delegate void CallbackDelegate(int[] buffer);
 public static extern void RegisterCallback(CallbackDelegate callback);
 ```
 
+### Calling Convention
+Should be well known.
+
+| **Order** | **Parameter Type**     | **Register** |
+|-----------|------------------------|--------------|
+| 1st       | Integer or Pointer     | `RCX`       |
+| 2nd       | Integer or Pointer     | `RDX`       |
+| 3rd       | Integer or Pointer     | `R8`        |
+| 4th       | Integer or Pointer     | `R9`        |
+| 1st       | Floating Point (if any) | `XMM0`      |
+| 2nd       | Floating Point         | `XMM1`      |
+| 3rd       | Floating Point         | `XMM2`      |
+| 4th       | Floating Point         | `XMM3`      |
+
+*Arguments beyond these four are pushed onto the stack in **right-to-left** order.*
+
+### 2. **Stack Usage**
+   - **Shadow Space**: 32 bytes of shadow space (also called "home space") is allocated on the stack for the first four arguments, even if they’re passed in registers.
+   - **Alignment**: The stack must be aligned to 16 bytes before a `CALL` instruction.
+
+### 3. **Return Values**
+   - **64-bit Integer or Pointer**: Returned in `RAX`.
+   - **128-bit Values (like `__m128`)**: Stored in `XMM0`.
+
+### 4. **Register Preservation**
+   - **Caller-Saved (Volatile)**: `RAX`, `RCX`, `RDX`, `R8`, `R9`, `R10`, `R11`, `XMM0` to `XMM5`
+   - **Callee-Saved (Non-volatile)**: `RBX`, `RBP`, `RDI`, `RSI`, `R12` to `R15`, `XMM6` to `XMM15`
+
+https://learn.microsoft.com/en-us/cpp/build/x64-calling-convention?view=msvc-170
+
 ### Receiving all entries
 We've been building up towards our own implementation of `GetModuleHandleA` in `assembly`, to evade security measures. As the assembly code is pretty short, we could easily `stuff` the custom dll we're building with other `instructions` we don't need, as obfuscation, and hide our implementation in between. But for the `research` part we don't see the need to do it here. 
 
