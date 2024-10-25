@@ -72,7 +72,6 @@ https://en.wikipedia.org/wiki/Win32_Thread_Information_Block
 ### Virtual Address Space
 Virtual Address Space refers to the range of memory addresses that an application can use in a virtual memory system. It provides a layer of abstraction between physical and logical memory, allowing processes to act as if they have access to a larger range of contiguous addresses than is actually available in physical RAM. The virtual address space is divided into different segments like the stack, heap, and data and code sections, each serving distinct roles within the context of a running process.
 
-
 ### FS / GS and TEB
 On 32bit, the `FS` register and on 64bit the `GS` register points to the `TEB`, the Thread Information Block aka Threat Environment Block. 
 
@@ -80,6 +79,63 @@ On 32bit, the `FS` register and on 64bit the `GS` register points to the `TEB`, 
 https://learn.microsoft.com/en-us/windows/win32/api/winternl/ns-winternl-peb
 
 Through the TEB you can access the PEB and further more, the PEB_LDR_DATA structure. It holds for example the `base address` of the current `process` and each loaded module, providing an `alternative` way to access this information without using high-level WinAPI / kernel32.dll function. 
+
+Let’s take a look at the PEB (Process Environment Block) and its structure, particularly the loader data that contains the linked list of loaded modules (DLLs). Understanding the definitions and structures is crucial for debugging your assembly code.
+
+### PEB Structure
+```c
+typedef struct _PEB {
+    BYTE Reserved1[2];
+    BYTE BeingDebugged;
+    BYTE Reserved2[21];
+    PVOID Reserved3[2];
+    PEB_LDR_DATA* Ldr;          // Points to the LDR data (module list)
+    // Other fields...
+} PEB, *PPEB;
+```
+
+### PEB_LDR_DATA Structure
+The `PEB_LDR_DATA` structure represents the loader data, which contains a linked list of loaded modules (DLLs):
+
+```c
+typedef struct _PEB_LDR_DATA {
+    ULONG Length;
+    BOOLEAN Initialized;
+    PVOID SsHandle;
+    LIST_ENTRY ModuleList;       // Linked list of loaded modules
+    // Other fields...
+} PEB_LDR_DATA, *PPEB_LDR_DATA;
+```
+
+### LIST_ENTRY Structure
+Each module in the list is represented by a `LDR_DATA_TABLE_ENTRY` structure, which contains a `LIST_ENTRY` for linking:
+
+```c
+typedef struct _LIST_ENTRY {
+    struct _LIST_ENTRY* Flink;  // Pointer to the next entry
+    struct _LIST_ENTRY* Blink;   // Pointer to the previous entry
+} LIST_ENTRY, *PLIST_ENTRY;
+```
+
+### LDR_DATA_TABLE_ENTRY Structure
+The `LDR_DATA_TABLE_ENTRY` structure represents a single loaded module:
+
+```c
+typedef struct _LDR_DATA_TABLE_ENTRY {
+    LIST_ENTRY InLoadOrderLinks; // Links for the load order
+    LIST_ENTRY InMemoryOrderLinks; // Links for memory order
+    LIST_ENTRY InInitializationOrderLinks; // Links for init order
+    PVOID DllBase;               // Base address of the DLL
+    PVOID EntryPoint;            // Entry point of the DLL
+    ULONG SizeOfImage;           // Size of the image
+    UNICODE_STRING FullDllName;  // Full name of the DLL
+    UNICODE_STRING BaseDllName;   // Base name of the DLL
+    ULONG Flags;                 // Flags
+    USHORT LoadCount;            // Load count
+    USHORT TlsIndex;             // TLS index
+    // Other fields...
+} LDR_DATA_TABLE_ENTRY, *PLDR_DATA_TABLE_ENTRY;
+```
 
 ### PEB in Debugger
 ![](peb.JPG)
