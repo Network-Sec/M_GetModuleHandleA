@@ -1,3 +1,5 @@
+/* Note that this is a Demo for M_GetModuleHandleNames, the extended version that also prints DLL Names */
+
 #include <stdio.h>
 #include <windows.h>
 #include <stdint.h>
