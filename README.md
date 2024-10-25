@@ -377,4 +377,4 @@ This can get a bit more difficult than your average Serialisation exploit. Here'
 - Start simple. Instead of CLI use VS2022 (or whatever version)
 - Beginn with dynamic loading, `LoadLibrary`, things you know work and you know `how` they work, to confirm your **Assembly** code is not broken
 - Once you got that, step it up to maybe CLI compilation, separating `cpp -> obj` compilation and `obj -> exe` linking, providing the .lib correctly etc.
-- If you truly wanna weaponize this, you need to make the offsets `dynamic` - resources like Vergilius could help you achieve that. Have fun. 
+- If you truly wanna weaponize this (XP compatibility), you need to make the offsets `dynamic` - resources like Vergilius could help you achieve that. Have fun. 
