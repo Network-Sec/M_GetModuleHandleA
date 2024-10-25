@@ -2,7 +2,8 @@
 Custom low-level Assembly implementation of WinAPI function GetModuleHandle().
 
 ## Why
-In theory, this **could** fly below Windows `Exploit Guard` and similar `WinAPI Monitoring` techniques. However, due to **COMPLETE LACK OF RESOURCES AND SUPPORT** we can't test if it really does. 
+In theory, this **could** fly below Windows `Exploit Guard` and similar `WinAPI Monitoring` techniques. 
+However, due to **COMPLETE LACK OF RESOURCES AND SUPPORT** we can't test if it really does. 
 
 Further infos on the topic in general:
 - Def Con 32: https://www.youtube.com/watch?v=cHsRxkfxvq8
