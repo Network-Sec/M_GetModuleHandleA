@@ -63,7 +63,4 @@ DLL Addresses...
 00007FFAD2E10000
 00007FFAD5F60000
 0000000000000000
-
-There's still a small weirdness - we do pretty raw stuff here, so that can happen, especially when dealing with pointers in C afterwards and confusing types. 
-But if you remove the second printf loop, the whole thing will stop working... whatever :D
 */
