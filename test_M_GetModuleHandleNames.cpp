@@ -25,8 +25,8 @@ extern "C" {
 }
 
 int main() {
-    uint64_t addr_array[50] = {0};  
-    wchar_t* name_array[260] = { 0 };
+    uint64_t addr_array[50] = {0};      // PVOID DllBase    
+    wchar_t* name_array[260] = { 0 };   // UNICODE_STRING FullDllName
     int idx = 0;
 
     // Call the assembly function to populate both arrays
