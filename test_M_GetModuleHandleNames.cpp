@@ -25,7 +25,7 @@ extern "C" {
 }
 
 int main() {
-    uint64_t addr_array[50] = {0};   // Assuming a max of 256 DLLs
+    uint64_t addr_array[50] = {0};  
     wchar_t* name_array[260] = { 0 };
     int idx = 0;
 
