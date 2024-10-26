@@ -417,7 +417,7 @@ Why do we do this? This thing for itself doesn't do anything `Hacking`, right? C
 - Untested, but even having only a single, custom WinAPI function could potentially help with evasion, as for a scanner you may call WinAPI `GetProcAddress()` but you didn't do it in conjuction with WinAPI `GetModuleHandle()`, resulting in a different signature, maybe fooling a scanner altogether about your program's objectives
 
 ## What could you do with this?
-We try to remain critical towards our own work, that doesn't mean our `M_GetModuleHandle()` is useless. There's countless offensive techniques, that use the function: 
+We try to remain critical towards our own work, that doesn't mean our `M_GetModuleHandle()` is useless. There's countless offensive techniques, that use the function. GPT got you covered:
 
 ### 1. **Reflective DLL Injection with GetProcAddress**
    - **Objective**: Load and execute a DLL payload entirely in memory without touching disk.
