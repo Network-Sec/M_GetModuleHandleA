@@ -409,4 +409,4 @@ This can get a bit more difficult than your average Serialisation exploit. Here'
 - Once you got that, step it up to maybe CLI compilation, separating `cpp -> obj` compilation and `obj -> exe` linking, providing the .lib correctly etc.
 
 ## Coming Up
-Why not try to write your own `GetProcAddress()` and start implementing the first Offensive application.
+Why not try to write your own `GetProcAddress()` next and start implementing the first Offensive application.
