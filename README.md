@@ -412,7 +412,7 @@ This can get a bit more difficult than your average Serialisation exploit. Here'
 ## aaannd what's the point?
 Why do we do this? This thing for itself doesn't do anything `Hacking`, right? Correct. 
 - We do this to show, you `could` build your own WinAPI functions (stress on plural), a kit of LowLevel implementations. Malware like LockBit used a technique to obfuscate WinAPI (kernel32.dll) function names before calling them. Our (right now, fantasy-)kit doesn't need that, we bring our own WinAPI
-- It's an `introduction` topic - time will tell, if we continue on this way, there are a lot easier, more practical and faster ways to Hacking-success. It's a pet project, we love BinEx and LowLevel, since it's no longer that useful in Cybersecurity, we gave it a new home in Evasion
+- It's an `introduction` topic - time will tell, if we continue on this way, there are a lot easier, more practical and faster ways to Hacking-success. It's a pet project, we love BinEx and LowLevel, since it no longer has many practical applications in Cybersecurity, we gave it a new home in Evasion
 - As learning & study effort for everyone
 - Untested, but even having only a single, custom WinAPI function could potentially help with evasion, as for a scanner you may call WinAPI `GetProcAddress()` but you didn't do it in conjuction with WinAPI `GetModuleHandle()`, resulting in a different signature, maybe fooling a scanner altogether about your program's objectives
 
