@@ -1,0 +1,3 @@
+LIBRARY M_GetModuleHandleA
+EXPORTS
+    M_GetModuleHandleA
