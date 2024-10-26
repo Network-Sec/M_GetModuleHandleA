@@ -410,3 +410,62 @@ This can get a bit more difficult than your average Serialisation exploit. Here'
 
 ## Coming Up
 Why not try to write your own `GetProcAddress()` next and start implementing the first Offensive application.
+
+Untested - made by AI, probably not yet working.
+```assembly
+section .data
+    kernel32_name db 'kernel32.dll',0
+    getprocaddress_name db 'GetProcAddress',0
+
+section .text
+global _start
+_start:
+    ; Step 1: Get handle to kernel32.dll (PEB technique)
+    mov eax, fs:[0x30]               ; Get PEB base address
+    mov eax, [eax + 0x0C]            ; PEB_LDR_DATA
+    mov esi, [eax + 0x1C]            ; InLoadOrderModuleList (head of module list)
+    lodsd                            ; Load kernel32.dll base address
+    mov ebx, [eax + 0x08]            ; Get kernel32.dll base address in EBX
+
+    ; Step 2: Get the Export Table of kernel32.dll
+    mov eax, [ebx + 0x3C]            ; Get PE Header offset
+    add eax, ebx                     ; Get PE Header location
+    mov edx, [eax + 0x78]            ; RVA of Export Table
+    add edx, ebx                     ; VA of Export Table (edx)
+
+    ; Step 3: Parse Export Table to find GetProcAddress by name
+    mov ecx, [edx + 0x18]            ; Number of name pointers
+    mov esi, [edx + 0x20]            ; RVA of Name Pointer Table
+    add esi, ebx                     ; VA of Name Pointer Table
+    mov edi, [edx + 0x24]            ; RVA of Ordinal Table
+    add edi, ebx                     ; VA of Ordinal Table
+    mov edx, [edx + 0x1C]            ; RVA of Address Table
+    add edx, ebx                     ; VA of Address Table
+
+find_function_loop:
+    dec ecx                          ; Decrement counter
+    jl not_found                     ; Jump if no matches
+    mov eax, [esi + ecx*4]           ; Get function name pointer
+    add eax, ebx                     ; Adjust to VA
+    push eax                         ; Save function name address
+    push getprocaddress_name         ; Push our target function name
+    call strcmp                      ; Compare function names
+    test eax, eax                    ; Test result
+    pop eax                          ; Restore register
+    jz function_found                ; Jump if we found GetProcAddress
+
+    jmp find_function_loop           ; Loop until found
+
+function_found:
+    movzx eax, word [edi + ecx*2]    ; Get ordinal (index) from ordinal table
+    mov eax, [edx + eax*4]           ; Get RVA of function
+    add eax, ebx                     ; Get VA of function (GetProcAddress)
+
+    ; Now EAX contains the address of GetProcAddress; you can call it
+    push eax                         ; Save GetProcAddress address on stack
+
+    ; Example: Using GetProcAddress to resolve LoadLibraryA
+    push kernel32_name               ; Push DLL name
+    call [esp+4]                     ; Call GetProcAddress
+    ; Clean up
+```
