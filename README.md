@@ -386,7 +386,7 @@ Address: 0x00007FF8A4FC0000
 
 `Caviat`: Of course this method also has a downside, when it's gonna crash, it's gonna crash hard. There's absolutely no error checking, no high-level exception handling like in managed .NET, not even SEH (depending on how and where you call it).
 
-## WIP Update
+## Update
 We finally came around to continue on the **WIP** part and now also output the DLLNames:
 
 ```powershell
