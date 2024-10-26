@@ -415,8 +415,6 @@ Why do we do this? This thing for itself doesn't do anything `Hacking`, right? C
 - It's an `introduction` topic - time will tell, if we continue on this way, there are a lot easier, more practical and faster ways to Hacking-success. It's a pet project, we love BinEx and LowLevel, since it's no longer that useful in Cybersecurity, we gave it a new home in Evasion
 - As learning & study effort for everyone
 
-Using `GetModuleHandle()` alongside offensive techniques typically focuses on injecting code or DLLs into the current process or manipulating other processes. Below are three ways to leverage `GetModuleHandle()` for offensive purposes within the current process, focusing on stealthy DLL function resolution, lateral code execution, and abuse of loaded modules.
-
 ## What could you do with this?
 We try to remain critical towards our own work, that doesn't mean our `M_GetModuleHandle()` is useless. There's countless offensive techniques, that use the function: 
 
