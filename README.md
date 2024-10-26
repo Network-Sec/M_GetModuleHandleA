@@ -407,4 +407,46 @@ This can get a bit more difficult than your average Serialisation exploit. Here'
 - Start simple. Instead of CLI use VS2022 (or whatever version)
 - Begin with dynamic loading, `LoadLibrary`, things you know work and you know `how` they work, to confirm your **Assembly** code is not broken
 - Once you got that, step it up to maybe CLI compilation, separating `cpp -> obj` compilation and `obj -> exe` linking, providing the .lib correctly etc.
-- If you truly wanna weaponize this (XP compatibility), you need to make the offsets `dynamic` - resources like Vergilius could help you achieve that. Have fun. 
+- If you truly wanna weaponize this (XP compatibility), you need to make the offsets `dynamic` - resources like Vergilius could help you achieve that. Have fun.
+
+## aaannd what's the point?
+Why do we do this? This thing for itself doesn't do anything `Hacking`, right? Correct. 
+- We do this to show, you `could` build your own WinAPI functions (stress on plural), a kit of LowLevel implementations. Malware like LockBit used a technique to obfuscate WinAPI (kernel32.dll) function names before calling them. Our (right now, fantasy-)kit doesn't need that, we bring our own WinAPI
+- It's an `introduction` topic - time will tell, if we continue on this way, there are a lot easier, more practical and faster ways to Hacking-success. It's a pet project, we love BinEx and LowLevel, since it's no longer that useful in Cybersecurity, we gave it a new home in Evasion
+- As learning & study effort for everyone
+
+Using `GetModuleHandle()` alongside offensive techniques typically focuses on injecting code or DLLs into the current process or manipulating other processes. Below are three ways to leverage `GetModuleHandle()` for offensive purposes within the current process, focusing on stealthy DLL function resolution, lateral code execution, and abuse of loaded modules.
+
+## What could you do with this?
+We try to remain critical towards our own work, that doesn't mean our `M_GetModuleHandle()` is useless. There's countless offensive techniques, that use the function: 
+
+### 1. **Reflective DLL Injection with GetProcAddress**
+   - **Objective**: Load and execute a DLL payload entirely in memory without touching disk.
+   - **Technique**: Use `GetModuleHandle()` to check if a target DLL is loaded. Then use `GetProcAddress()` to fetch function pointers directly, allowing for stealthy API calls.
+   - **Steps**:
+     1. Call `GetModuleHandle("kernel32.dll")` to get a handle to `kernel32` (or another common DLL).
+     2. Use `GetProcAddress()` to resolve functions dynamically (e.g., `VirtualAlloc`, `CreateThread`), setting up the execution of the DLL in memory.
+     3. Load the DLL using reflective injection techniques and execute payload functions.
+
+   **Advantage**: No need for `LoadLibrary()`, which could raise AV alerts; `GetModuleHandle()` bypasses the loading overhead if the DLL is already present.
+
+### 2. **Function Hooking with GetModuleHandle**
+   - **Objective**: Hook and modify function behavior within loaded modules.
+   - **Technique**: Use `GetModuleHandle()` to identify modules loaded in the current process (like `user32.dll` or `kernel32.dll`) and locate target functions. Then replace or hook functions.
+   - **Steps**:
+     1. Call `GetModuleHandle("user32.dll")` (for example) to get a handle to the module where target functions are stored.
+     2. Locate the function’s address with `GetProcAddress()` (e.g., `MessageBoxW`).
+     3. Overwrite the function’s prologue with a jump to a malicious function.
+     4. Redirect or log data passed to the hooked function as desired.
+
+   **Advantage**: Hooks within already loaded modules avoid loading new DLLs or external resources, keeping execution stealthy within the current process.
+
+### 3. **DLL Side-Loading for Abusing Trust Relationships**
+   - **Objective**: Use `GetModuleHandle()` to check if any trusted DLLs are loaded in the current process, and side-load malicious versions.
+   - **Technique**: Identify non-critical, replaceable DLLs already loaded in trusted applications and inject payloads.
+   - **Steps**:
+     1. Use `GetModuleHandle()` to identify if the target DLL is loaded (e.g., `userenv.dll`).
+     2. If the DLL is present and trusted, prepare a malicious DLL with the same exports but with modified behavior.
+     3. Load the malicious DLL as a side-loaded version using `LoadLibrary()`, while `GetModuleHandle()` confirms presence, ensuring execution.
+   
+   **Advantage**: DLL side-loading allows code execution within trusted, signed applications—effectively masking malicious actions and improving stealth.
