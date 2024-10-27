@@ -12,7 +12,7 @@ Further infos on the topic in general:
 ## Usage Guidelines
 This is an *Informational Article* in the area of Security Research, intended as baseline- and study guideline, and not a finished product. You are free to use the information to create your own version, but: 
 
-*"Please, **do not use our code as-is** in production, your own RedTeam or Pentesting activity, CTFs or malicious activity."* 
+*"Please, **do not use our code as-is** in production, your own RedTeam or Pentesting activity, CTFs or malicious activity."*   
 For the very least, **add some obfuscation**, other instructions that actively do things and won't be optimized away, not just changing 2 register names and adding a bunch of NOPs.
 
 ## Threat Information Block
