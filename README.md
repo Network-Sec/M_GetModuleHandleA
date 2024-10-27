@@ -16,6 +16,9 @@ This is an *Informational Article* in the area of Security Research, intended as
 
 For the very least, **add some obfuscation**, other instructions that actively do things and won't be optimized away, not just changing 2 register names and adding a bunch of NOPs.
 
+## Why... the other thing
+We could write *"don't use for evil purposes"* all day, but we doubt that people, who ignore laws, would give a single. 
+
 ## Threat Information Block
 and special registers. 
 
