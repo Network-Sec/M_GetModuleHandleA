@@ -13,14 +13,7 @@ Further infos on the topic in general:
 This is an *Informational Article* in the area of Security Research, intended as baseline- and study guideline, and not a finished product. You are free to use the information to create your own version, but: 
 
 *"Please, **do not use our code as-is** in production, your own RedTeam or Pentesting activity, CTFs or malicious activity."* 
-
-We spend a lot of time on creating things like this, with the intention to use the code for our own, legal RedTeam activities, and to share the information with the community. Would be great, if it still works when we use it **for the first time** and not instantly be flagged. 
-
-For the very least, **add some obfuscation**, other instructions, not just NOPs!
-
-If your skill level doesn't allow for that - maybe you shouldn't do these things in the first place and consider methods you understand instead. Like, riding your tricycle, or playing hide & seek. 
-
-Thank you.
+For the very least, **add some obfuscation**, other instructions that actively do things and won't be optimized away, not just changing 2 register names and adding a bunch of NOPs.
 
 ## Threat Information Block
 and special registers. 
